@@ -68,7 +68,7 @@ jobs:
             echo "Processing $APP..."
 
             # Docker Build & Push
-            docker build -t $IMAGE ./apps/$APP
+            docker build -t $IMAGE -f ./apps/$APP/Dockerfile .
             docker push $IMAGE
 
             # Cloud Run Deploy
