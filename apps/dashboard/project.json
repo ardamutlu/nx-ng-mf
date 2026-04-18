@@ -10,6 +10,8 @@
       "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "baseHref": "/",
+        "deployUrl": "/",
         "outputPath": "dist/apps/dashboard",
         "index": "apps/dashboard/src/index.html",
         "main": "apps/dashboard/src/main.ts",
