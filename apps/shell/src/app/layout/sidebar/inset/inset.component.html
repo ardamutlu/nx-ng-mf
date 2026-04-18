@@ -1,0 +1,27 @@
+<div hlmSidebarWrapper>
+  <hlm-sidebar variant="inset">
+    <hlm-sidebar-header>
+      <ul hlmSidebarMenu>
+        <li hlmSidebarMenuItem>
+          <a hlmSidebarMenuButton href="#" size="lg">
+            <div
+              class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
+            >
+              <ng-icon class="text-base" name="lucideCommand" />
+            </div>
+            <div class="grid flex-1 text-left text-sm leading-tight">
+              <span class="truncate font-medium">Acme Inc</span>
+              <span class="truncate text-xs">Enterprise</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </hlm-sidebar-header>
+
+    <hlm-sidebar-content>
+      <ng-mf-nav-menu [items]="data"></ng-mf-nav-menu>
+    </hlm-sidebar-content>
+    <hlm-sidebar-footer></hlm-sidebar-footer>
+  </hlm-sidebar>
+  <ng-content />
+</div>

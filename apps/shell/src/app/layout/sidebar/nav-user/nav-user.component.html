@@ -1,0 +1,50 @@
+@let u = user();
+@if (u) {
+  <button
+    [hlmDropdownMenuTrigger]="menu"
+    align="end"
+    class="block h-auto rounded-full p-0 cursor-pointer"
+    hlmBtn
+    side="bottom"
+    size="lg"
+    variant="ghost"
+  >
+    <ng-container
+      *ngTemplateOutlet="avatarTpl; context: { $implicit: u }"
+    ></ng-container>
+  </button>
+
+  <ng-template #menu>
+    <hlm-dropdown-menu class="min-w-56 rounded-lg">
+      <hlm-dropdown-menu-label>
+        <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+          <ng-container
+            *ngTemplateOutlet="avatarTpl; context: { $implicit: u }"
+          ></ng-container>
+          <div class="grid flex-1 text-left text-sm leading-tight">
+            <span class="truncate font-medium">{{ u.name }}</span>
+            <span class="truncate text-xs">{{ u.email }}</span>
+          </div>
+        </div>
+      </hlm-dropdown-menu-label>
+      <hlm-dropdown-menu-separator />
+      <button (click)="logout()" hlmDropdownMenuItem>
+        <ng-icon name="lucideLogOut" />
+        {{ 'common.logout' | translate }}
+      </button>
+    </hlm-dropdown-menu>
+  </ng-template>
+
+  <ng-template #avatarTpl let-user>
+    <hlm-avatar class="rounded-lg">
+      <img
+        [alt]="user.name"
+        [src]="user.avatar_url ?? '/assets/avatar.png'"
+        hlmAvatarImage
+      />
+      <span class="rounded-lg bg-rose-500 text-white" hlmAvatarFallback>
+        {{ user.name | uppercase | slice: 0 : 2 }}
+      </span>
+    </hlm-avatar>
+  </ng-template>
+}

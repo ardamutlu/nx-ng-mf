@@ -1,0 +1,20 @@
+<hlm-sidebar-group>
+  <div hlmSidebarGroupLabel>Projects</div>
+  <ul hlmSidebarMenu>
+    @for (item of items(); track $index) {
+      <li hlmSidebarMenuItem>
+        <a
+          #rla="routerLinkActive"
+          [isActive]="rla.isActive"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLink]="item.url"
+          hlmSidebarMenuButton
+          routerLinkActive=""
+        >
+          <ng-icon [name]="item.icon" />
+          {{ item.name | translate }}
+        </a>
+      </li>
+    }
+  </ul>
+</hlm-sidebar-group>

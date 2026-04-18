@@ -1,0 +1,6 @@
+{
+  "plugins": {
+    "../../tools/nx-tailwind-graph-plugin/index.js": {},
+    "@tailwindcss/postcss": {}
+  }
+}

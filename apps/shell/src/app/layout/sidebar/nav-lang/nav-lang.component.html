@@ -1,0 +1,43 @@
+@let selected_lang = selectedLang();
+@if (selected_lang) {
+  <button
+    [hlmDropdownMenuTrigger]="menu"
+    align="end"
+    class="block rounded-full h-auto p-0 cursor-pointer"
+    hlmBtn
+    side="bottom"
+    size="lg"
+    variant="ghost"
+  >
+    <hlm-avatar class="rounded-lg">
+      <img
+        [alt]="selected_lang.label"
+        [src]="selected_lang.flag"
+        hlmAvatarImage
+      />
+      <span class="rounded-lg bg-[#FD005B] text-white" hlmAvatarFallback>{{
+        selected_lang.value | uppercase
+      }}</span>
+    </hlm-avatar>
+  </button>
+
+  <ng-template #menu>
+    <hlm-dropdown-menu class="rounded-lg">
+      @for (lang of languages; track lang.value) {
+        <button
+          (click)="changeLang(lang)"
+          [disabled]="selected_lang.value === lang.value"
+          hlmDropdownMenuItem
+        >
+          <img
+            [alt]="lang.label"
+            [src]="lang.flag"
+            class="h-[16px] w-[16px]"
+            hlmAvatarImage
+          />
+          {{ lang.label }}
+        </button>
+      }
+    </hlm-dropdown-menu>
+  </ng-template>
+}

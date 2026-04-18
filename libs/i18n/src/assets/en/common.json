@@ -1,0 +1,7 @@
+{
+  "logout": "Logout",
+  "menu": {
+    "dashboard": "Dashboard",
+    "repositories": "Repositories"
+  }
+}
