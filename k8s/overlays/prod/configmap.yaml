@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: app-config
 data:
-  API_URL: "https://dev-api.myapp.com"
+  API_URL: "https://prod-api.myapp.com"

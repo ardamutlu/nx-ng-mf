@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: dashboard
+
+spec:
+  replicas: 3
+
+  revisionHistoryLimit: 2
+
+  selector:
+    matchLabels:
+      app: dashboard
+
+  template:
+    metadata:
+      labels:
+        app: dashboard
+
+    spec:
+      containers:
+        - name: dashboard
+          image: app/dashboard:latest
+          ports:
+            - containerPort: 80
+
+  strategy:
+    canary:
+      stableService: dashboard
+      steps:
+        - setWeight: 20
+        - pause: { duration: 30s }
+        - setWeight: 50
+        - pause: { duration: 30s }
+        - setWeight: 100

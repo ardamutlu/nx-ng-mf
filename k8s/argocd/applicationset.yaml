@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: mf-envs
+  namespace: argocd
+
+spec:
+  generators:
+    - pullRequest:
+        github:
+          owner: ardamutlu
+          repo: nx-ng-mf
+          tokenRef:
+            secretName: github-token
+            key: token
+
+  template:
+    metadata:
+      name: pr-{{number}}
+
+    spec:
+      project: default
+
+      source:
+        repoURL: https://github.com/ardamutlu/nx-ng-mf
+        targetRevision: HEAD
+        path: k8s/overlays/preview
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: pr-{{number}}
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+
+        syncOptions:
+          - CreateNamespace=true

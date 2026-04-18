@@ -3,18 +3,18 @@ kind: Kustomization
 
 resources:
   - ../../base
-  - configmap.yaml
-  - ingress.yaml
 
-namespace: prod
+namespace: pr-${PR}
 
 images:
   - name: app/shell
     newName: europe-west1-docker.pkg.dev/${GCP_PROJECT_ID}/${GCP_REPOSITORY_NAME}/shell
-    newTag: prod
+    newTag: ${SHA}
+
   - name: app/auth
     newName: europe-west1-docker.pkg.dev/${GCP_PROJECT_ID}/${GCP_REPOSITORY_NAME}/auth
-    newTag: prod
+    newTag: ${SHA}
+
   - name: app/dashboard
     newName: europe-west1-docker.pkg.dev/${GCP_PROJECT_ID}/${GCP_REPOSITORY_NAME}/dashboard
-    newTag: prod
+    newTag: ${SHA}

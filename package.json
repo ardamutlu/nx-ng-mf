@@ -5,7 +5,8 @@
   "scripts": {
     "i18n:gen": "ts-node --esm libs/i18n/src/lib/tools/generate-keys.ts",
     "i18n:check": "ts-node libs/i18n/src/lib/tools/check-missing.ts",
-    "i18n:extract": "ts-node libs/i18n/src/lib/tools/extract-keys.ts"
+    "i18n:extract": "ts-node libs/i18n/src/lib/tools/extract-keys.ts",
+    "argo-port": "kubectl port-forward svc/argocd-server -n argocd 8080:443"
   },
   "private": true,
   "devDependencies": {
