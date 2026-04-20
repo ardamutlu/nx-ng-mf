@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
+import { RouterOutlet } from '@angular/router';
 import { InsetComponent } from './inset/inset.component';
 import { HeaderComponent } from './header/header.component';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'ng-mf-sidebar',

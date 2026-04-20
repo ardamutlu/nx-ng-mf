@@ -7,7 +7,8 @@ import { AuthStore } from './auth.store';
 import { PassportStrategy } from './auth.model';
 import { AUTH_KEYS } from './auth.token';
 
-const REQUEST_URL = 'http://localhost:3000/auth';
+// @ts-ignore
+const API_URL = `${process.env.API_URL}/auth`;
 const REQUEST_OPTIONS = { withCredentials: true };
 
 @Injectable({ providedIn: 'root' })
@@ -19,11 +20,11 @@ export class AuthService {
 
   loginWithProvider(provider: PassportStrategy): void {
     this.loading.start(AUTH_KEYS.login);
-    window.location.href = `${REQUEST_URL}/${provider}`;
+    window.location.href = `${API_URL}/${provider}`;
   }
 
   me() {
-    return this.http.get(`${REQUEST_URL}/me`, {
+    return this.http.get(`${API_URL}/me`, {
       ...REQUEST_OPTIONS,
       context: new HttpContext().set(LOADING_KEY, AUTH_KEYS.me),
     });
@@ -31,7 +32,7 @@ export class AuthService {
 
   refresh() {
     return this.http.post(
-      `${REQUEST_URL}/refresh`,
+      `${API_URL}/refresh`,
       {},
       {
         ...REQUEST_OPTIONS,
@@ -43,7 +44,7 @@ export class AuthService {
   logout() {
     return this.http
       .post(
-        `${REQUEST_URL}/logout`,
+        `${API_URL}/logout`,
         {},
         {
           ...REQUEST_OPTIONS,

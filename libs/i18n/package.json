@@ -2,10 +2,10 @@
   "name": "@company/i18n",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0",
+    "@angular/common": "^21.2.9",
+    "@angular/core": "^21.2.9",
     "@ngx-translate/core": "^17.0.0",
-    "rxjs": "~7.8.0",
+    "rxjs": "~7.8.2",
     "@typescript-eslint/utils": "^8.40.0"
   },
   "sideEffects": false

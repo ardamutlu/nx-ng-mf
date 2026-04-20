@@ -2,9 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
-
-const ACCESS_TOKEN_EXPIRE_TIME = '15m';
-const REFRESH_TOKEN_EXPIRE_TIME = '7d';
+import type { StringValue } from 'ms';
 
 @Injectable()
 export class AuthService {
@@ -16,10 +14,10 @@ export class AuthService {
   generateTokens(user: any) {
     return {
       accessToken: this.jwt.sign(user, {
-        expiresIn: ACCESS_TOKEN_EXPIRE_TIME,
+        expiresIn: process.env.ACCESS_TOKEN_EXPIRE_TIME as StringValue,
       }),
       refreshToken: this.jwt.sign(user, {
-        expiresIn: REFRESH_TOKEN_EXPIRE_TIME,
+        expiresIn: process.env.REFRESH_TOKEN_EXPIRE_TIME as StringValue,
       }),
     };
   }
@@ -36,10 +34,13 @@ export class AuthService {
 
   async revokeGoogleToken(accessToken: string) {
     try {
-      await fetch(`https://oauth2.googleapis.com/revoke?token=${accessToken}`, {
-        method: 'POST',
-        headers: { 'Content-type': 'application/x-www-form-urlencoded' },
-      });
+      await fetch(
+        `${process.env.GOOGLE_OAUTH2_URL}/revoke?token=${accessToken}`,
+        {
+          method: 'POST',
+          headers: { 'Content-type': 'application/x-www-form-urlencoded' },
+        },
+      );
     } catch (err) {
       console.warn('Google revoke failed:', err?.message);
     }

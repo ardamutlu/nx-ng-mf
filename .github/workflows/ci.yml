@@ -58,9 +58,20 @@ jobs:
           REPO=${{ vars.GCP_REPOSITORY_NAME }}
           REGION="europe-west1"
           TAG=${{ github.sha }}
+          API_URL=${{ vars.API_URL }}
+          FRONTEND_URL=${{ vars.FRONTEND_URL }}
+          GIT_CALLBACK_URL=${{ vars.GIT_CALLBACK_URL }}
+          GOOGLE_OAUTH2_URL=${{ vars.GOOGLE_OAUTH2_URL }}
+          JWT_ACCESS_EXPIRES_IN=${{ vars.JWT_ACCESS_EXPIRES_IN }}
+          JWT_REFRESH_EXPIRES_IN=${{ vars.JWT_REFRESH_EXPIRES_IN }}
+          GIT_CLIENT_ID=${{ secrets.GIT_CLIENT_ID }}
+          GIT_CLIENT_SECRET=${{ secrets.GIT_CLIENT_SECRET }}
+          GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
 
-          # APPS listesini buraya ekliyoruz
-          APPS=("shell" "auth" "dashboard")
+          # APPS listesi
+          APPS=("api" "shell" "auth" "dashboard")
 
           for APP in "${APPS[@]}"; do
             IMAGE="europe-west1-docker.pkg.dev/$PROJECT/$REPO/$APP:$TAG"
@@ -68,7 +79,9 @@ jobs:
             echo "Processing $APP..."
 
             # Docker Build & Push
-            docker build -t $IMAGE -f ./apps/$APP/Dockerfile .
+            docker build \
+              --build-arg API_URL=$API_URL \
+              -t $IMAGE -f ./apps/$APP/Dockerfile .
             docker push $IMAGE
 
             # Cloud Run Deploy
@@ -76,5 +89,7 @@ jobs:
               --image $IMAGE \
               --region $REGION \
               --platform managed \
-              --allow-unauthenticated
+              --allow-unauthenticated \
+              --port=80 \
+              --set-env-vars="APP_NAME=$APP,ENV=prod,API_URL=$API_URL,FRONTEND_URL=$FRONTEND_URL,GIT_CALLBACK_URL=$GIT_CALLBACK_URL,GOOGLE_OAUTH2_URL=$GOOGLE_OAUTH2_URL,JWT_ACCESS_EXPIRES_IN=$JWT_ACCESS_EXPIRES_IN,JWT_REFRESH_EXPIRES_IN=$JWT_REFRESH_EXPIRES_IN,GIT_CLIENT_ID=$GIT_CLIENT_ID,GIT_CLIENT_SECRET=$GIT_CLIENT_SECRET,GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET,JWT_SECRET=$JWT_SECRET"
           done

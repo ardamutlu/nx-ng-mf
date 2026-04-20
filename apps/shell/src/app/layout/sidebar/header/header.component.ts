@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
-// import { HlmBreadcrumbImports } from '@spartan-ng/helm/breadcrumb';
 import { NavUserComponent } from '../nav-user/nav-user.component';
 import { NavLangComponent } from '../nav-lang/nav-lang.component';
 
@@ -12,7 +11,6 @@ import { NavLangComponent } from '../nav-lang/nav-lang.component';
   imports: [
     HlmSidebarImports,
     HlmSeparatorImports,
-    // HlmBreadcrumbImports,
     NavUserComponent,
     NavLangComponent,
   ],
